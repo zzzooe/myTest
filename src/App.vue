@@ -22,10 +22,7 @@ export default {
   name: "app",
   data() {
     return {
-      goods: [
-        { id: 0, name: "web前端技术课程", price: 1000 },
-        { id: 1, name: "全栈工程技术公开课", price: 300 }
-      ],
+      goods: [],
       cart: [],
       name: "公开课"
     };
