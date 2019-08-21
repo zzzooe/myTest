@@ -41,6 +41,11 @@ export default {
       cart: []
     };
   },
+  watch: {
+    cart(newVal, oldVal) {
+      console.log(newVal, oldVal);
+    }
+  },
   computed: {
     activeCount() {
       // 过滤出激活项的数量

@@ -3,6 +3,13 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <div class="addInfo">
+      <h4>测试数据</h4>
+      <ul>
+        <li v-for="(item,index) in testData" :key="item.id">
+          <span>{{item.name}}</span>
+          <span>${{item.price}}</span>
+        </li>
+      </ul>
       <ul>
         <li v-for="(item,index) in goods" :key="item.id">
           <span>{{item.name}}</span>
@@ -10,26 +17,49 @@
           <button @click="addGood(index)">添加到购物车</button>
         </li>
       </ul>
-      <cart :cart="cart" :name="name"></cart>
+      <cart :name="name"></cart>
     </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+// import HelloWorld from "./components/HelloWorld.vue";
 import cart from "./components/cart";
+import axios from "axios";
 export default {
   name: "app",
   data() {
     return {
+      testData: [],
       goods: [],
-      cart: [],
       name: "公开课"
     };
   },
   components: {
-    HelloWorld,
+    // HelloWorld,
     cart
+  },
+  async created() {
+    try {
+      //获取商品数据
+      const response = await axios.get("/api/goods");
+      console.log(response);
+      this.goods = response.data.list;
+    } catch {
+      // 错误处理
+    }
+
+    try {
+      //获取商品数据
+
+      const response = await axios.get("/api/goods1");
+      console.log(response);
+      this.testData = response.data.list;
+    } catch {
+      // 错误处理
+    }
+
+    //
   },
   methods: {
     addGood(i) {
