@@ -38,12 +38,19 @@ export default {
   props: ["name"],
   data() {
     return {
-      cart: []
+      cart: JSON.parse(localStorage.getItem("mydata")) || []
     };
   },
   watch: {
-    cart(newVal, oldVal) {
-      console.log(newVal, oldVal);
+    cart: {
+      handler(newVal, oldVal) {
+        localStorage.setItem("mydata", JSON.stringify(newVal));
+      },
+      // 代表在wacth里声明了cart这个方法之后立即先去执行handler方法
+      // immediate: true,
+      deep: true
+
+      //
     }
   },
   computed: {
@@ -80,6 +87,7 @@ export default {
         });
       }
     });
+
     // 通过总线方式
     // this.$bus.$on("addCart", good => {
     //   const rep = this.cart.find(v => v.id === good.id);
